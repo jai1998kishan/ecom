@@ -28,6 +28,9 @@ import AdminUpdateBrand from "../Admin/Brand/AdminUpdateBrand";
 import AdminTestimonial from "../Admin/Testimonial/AdminTestimonial";
 import AdminCreateTestimonial from "../Admin/Testimonial/AdminCreateTestimonial";
 import AdminUpdateTestimonial from "../Admin/Testimonial/AdminUpdateTestimonial";
+import AdminProduct from "../Admin/Product/AdminProduct";
+import AdminCreateProduct from "../Admin/Product/AdminCreateProduct";
+import AdminUpdateProduct from "../Admin/Product/AdminUpdateProduct";
 
 function App() {
   return (
@@ -84,6 +87,17 @@ function App() {
           <Route
             path="/admin/testimonial/update/:id"
             element={<AdminUpdateTestimonial />}
+          />
+
+          {/* Admin Product routes  */}
+          <Route path="/admin/product" element={<AdminProduct />} />
+          <Route
+            path="/admin/product/create"
+            element={<AdminCreateProduct />}
+          />
+          <Route
+            path="/admin/product/update/:id"
+            element={<AdminUpdateProduct />}
           />
 
           {/* Error routes  */}

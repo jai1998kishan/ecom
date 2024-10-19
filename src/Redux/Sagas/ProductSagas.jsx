@@ -24,7 +24,7 @@ function* createSaga(action) {
 }
 
 function* getSaga() {
-  console.log("called..");
+  // console.log("called..");
   let response = yield getRecord("product");
   yield put({ type: GET_PRODUCT_RED, payload: response });
 }
