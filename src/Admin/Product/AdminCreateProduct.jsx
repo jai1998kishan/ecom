@@ -31,8 +31,7 @@ export default function AdminCreateProduct() {
     finalPrice: "",
     stock: true,
     stockQuantity: "",
-
-    pic: "",
+    pic: [],
     active: true,
   });
 

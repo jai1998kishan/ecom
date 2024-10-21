@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 
+import { getTestimonial } from "../Redux/ActionCreators/TestimonialActionCreators";
+import { useDispatch, useSelector } from "react-redux";
+
 function Testimonial() {
+  let [data, setData] = useState([]);
+
+  let dispatch = useDispatch();
+
+  let TestimonialStateData = useSelector((state) => state.TestimonialStateData);
+
   let options = {
     loop: true,
     autoplay: true,
@@ -32,6 +41,15 @@ function Testimonial() {
       },
     },
   };
+
+  useEffect(() => {
+    (() => {
+      dispatch(getTestimonial());
+      if (TestimonialStateData.length)
+        setData(TestimonialStateData.filter((x) => x.active));
+    })();
+  }, [TestimonialStateData.length]);
+
   return (
     <>
       {/* <!-- Testimonial Start --> */}
@@ -45,91 +63,22 @@ function Testimonial() {
           </h1>
           <div className="wow fadeInUp" data-wow-delay="0.1s">
             <OwlCarousel {...options}>
-              <div className="testimonial-item text-center">
-                <img
-                  className="img-fluid rounded-circle border border-2 p-2 mx-auto mb-4"
-                  src="img/testimonial-1.jpg"
-                  style={{ width: "100px", height: "100px" }}
-                />
-                <div className="testimonial-text rounded text-center p-4">
-                  <p>
-                    Clita clita tempor justo dolor ipsum amet kasd amet duo
-                    justo duo duo labore sed sed. Magna ut diam sit et amet stet
-                    eos sed clita erat magna elitr erat sit sit erat at rebum
-                    justo sea clita.
-                  </p>
-                  <h5 className="mb-1">Patient Name</h5>
-                  <span className="fst-italic">Profession</span>
-                </div>
-              </div>
-              <div className="testimonial-item text-center">
-                <img
-                  className="img-fluid rounded-circle border border-2 p-2 mx-auto mb-4"
-                  src="img/testimonial-2.jpg"
-                  style={{ width: "100px", height: "100px" }}
-                />
-                <div className="testimonial-text rounded text-center p-4">
-                  <p>
-                    Clita clita tempor justo dolor ipsum amet kasd amet duo
-                    justo duo duo labore sed sed. Magna ut diam sit et amet stet
-                    eos sed clita erat magna elitr erat sit sit erat at rebum
-                    justo sea clita.
-                  </p>
-                  <h5 className="mb-1">Patient Name</h5>
-                  <span className="fst-italic">Profession</span>
-                </div>
-              </div>
-              <div className="testimonial-item text-center">
-                <img
-                  className="img-fluid rounded-circle border border-2 p-2 mx-auto mb-4"
-                  src="img/testimonial-3.jpg"
-                  style={{ width: "100px", height: "100px" }}
-                />
-                <div className="testimonial-text rounded text-center p-4">
-                  <p>
-                    Clita clita tempor justo dolor ipsum amet kasd amet duo
-                    justo duo duo labore sed sed. Magna ut diam sit et amet stet
-                    eos sed clita erat magna elitr erat sit sit erat at rebum
-                    justo sea clita.
-                  </p>
-                  <h5 className="mb-1">Patient Name</h5>
-                  <span className="fst-italic">Profession</span>
-                </div>
-              </div>
-              <div className="testimonial-item text-center">
-                <img
-                  className="img-fluid rounded-circle border border-2 p-2 mx-auto mb-4"
-                  src="img/testimonial-2.jpg"
-                  style={{ width: "100px", height: "100px" }}
-                />
-                <div className="testimonial-text rounded text-center p-4">
-                  <p>
-                    Clita clita tempor justo dolor ipsum amet kasd amet duo
-                    justo duo duo labore sed sed. Magna ut diam sit et amet stet
-                    eos sed clita erat magna elitr erat sit sit erat at rebum
-                    justo sea clita.
-                  </p>
-                  <h5 className="mb-1">Patient Name</h5>
-                  <span className="fst-italic">Profession</span>
-                </div>
-              </div>
-              <div className="testimonial-item text-center">
-                <img
-                  className="img-fluid rounded-circle border border-2 p-2 mx-auto mb-4"
-                  src="img/testimonial-3.jpg"
-                  style={{ width: "100px", height: "100px" }}
-                />
-                <div className="testimonial-text rounded text-center p-4">
-                  <p>
-                    Clita clita tempor justo dolor ipsum amet kasd amet duo
-                    justo duo duo labore sed sed. Magna ut diam sit et amet stet
-                    eos sed clita erat magna elitr erat sit sit erat at rebum
-                    justo sea clita.
-                  </p>
-                  <h5 className="mb-1">Patient Name</h5>
-                  <span className="fst-italic">Profession</span>
-                </div>
-              </div>
+              {data?.map((item) => {
+                return (
+                  <div key={item.id} className="testimonial-item text-center">
+                    <img
+                      className="img-fluid rounded-circle border border-2 p-2 mx-auto mb-4"
+                      src={`${process.env.REACT_APP_SERVER}${item.pic}`}
+                      style={{ width: "100px", height: "100px" }}
+                      alt="testimonial images"
+                    />
+                    <div className="testimonial-text rounded text-center p-4">
+                      <p className="testimonial-message">{item.message}</p>
+                      <h5 className="mb-1">{item.name}</h5>
+                    </div>
+                  </div>
+                );
+              })}
             </OwlCarousel>
           </div>
         </div>

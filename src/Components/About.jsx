@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function About() {
   return (
@@ -9,11 +10,11 @@ function About() {
           <div className="row g-5">
             <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
               <p>
-                <span className="text-primary me-2">#</span>Welcome To Zoofari
+                <span className="text-primary me-2">#</span>Welcome To Ducart
               </p>
               <h1 className="display-5 mb-4">
-                Why You Should Visit
-                <span className="text-primary">Zoofari</span> Park!
+                Why You Should Checkout
+                <span className="text-primary"> Ducart</span>
               </h1>
               <p className="mb-4">
                 Stet no et lorem dolor et diam, amet duo ut dolore vero eos. No
@@ -22,27 +23,31 @@ function About() {
               </p>
               <h5 className="mb-3">
                 <i className="far fa-check-circle text-primary me-3"></i>Free
-                Car Parking
+                Shipping
               </h5>
               <h5 className="mb-3">
-                <i className="far fa-check-circle text-primary me-3"></i>Natural
-                Environment
+                <i className="far fa-check-circle text-primary me-3"></i>14 Days
+                Refund Policy
               </h5>
               <h5 className="mb-3">
                 <i className="far fa-check-circle text-primary me-3"></i>
-                Professional Guide & Security
+                Fast Delivery
               </h5>
               <h5 className="mb-3">
-                <i className="far fa-check-circle text-primary me-3"></i>World
-                Best Animals
+                <i className="far fa-check-circle text-primary me-3"></i>100%
+                Genuine Product
               </h5>
-              <a className="btn btn-primary py-3 px-5 mt-3" href="">
-                Read More
-              </a>
+              <Link className="btn btn-primary py-3 px-5 mt-3" to="/shop">
+                Shop Now
+              </Link>
             </div>
             <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.5s">
               <div className="img-border">
-                <img className="img-fluid" src="img/banner3.jpg" alt="" />
+                <img
+                  className="img-fluid"
+                  src="img/banner3.jpg"
+                  alt="Banner images"
+                />
               </div>
             </div>
           </div>

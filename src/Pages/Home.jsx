@@ -1,15 +1,41 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import About from "../Components/About";
 import Facts from "../Components/Facts";
-import Features from "../Components/Features";
+// import Features from "../Components/Features";
 import Products from "../Components/Products";
 import Testimonial from "../Components/Testimonial";
 
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
+import { Link } from "react-router-dom";
+
+import { getMaincategory } from "../Redux/ActionCreators/MaincategoryActionCreators";
+import { getSubcategory } from "../Redux/ActionCreators/SubcategoryActionCreators";
+import { getBrand } from "../Redux/ActionCreators/BrandActionCreators";
+
+import { getProduct } from "../Redux/ActionCreators/ProductActionCreators";
+
+import CategorySlider from "../Components/CategorySlider";
 
 function Home() {
+  let [maincategory, setMaincategory] = useState([]);
+  let [subcategory, setSubcategory] = useState([]);
+  let [brand, setBrand] = useState([]);
+
+  let [product, setProduct] = useState([]);
+
+  let dispatch = useDispatch();
+
+  let ProductStateData = useSelector((state) => state.ProductStateData);
+  let MaincategoryStateData = useSelector(
+    (state) => state.MaincategoryStateData
+  );
+  let SubcategoryStateData = useSelector((state) => state.SubcategoryStateData);
+  let BrandStateData = useSelector((state) => state.BrandStateData);
+
   let options = {
     loop: true,
     autoplay: true,
@@ -23,6 +49,38 @@ function Home() {
     items: 1,
   };
 
+  useEffect(() => {
+    (() => {
+      dispatch(getMaincategory());
+      if (MaincategoryStateData.length)
+        setMaincategory(MaincategoryStateData.filter((x) => x.active));
+    })();
+  }, [MaincategoryStateData.length]);
+
+  useEffect(() => {
+    (() => {
+      dispatch(getSubcategory());
+      if (SubcategoryStateData.length)
+        setSubcategory(SubcategoryStateData.filter((x) => x.active));
+    })();
+  }, [SubcategoryStateData.length]);
+
+  useEffect(() => {
+    (() => {
+      dispatch(getBrand());
+      if (BrandStateData.length)
+        setBrand(BrandStateData.filter((x) => x.active));
+    })();
+  }, [BrandStateData.length]);
+
+  useEffect(() => {
+    (() => {
+      dispatch(getProduct());
+      if (ProductStateData.length)
+        setProduct(ProductStateData.filter((x) => x.active));
+    })();
+  }, [ProductStateData.length]);
+
   return (
     <>
       {/* <!-- Header Start --> */}
@@ -30,28 +88,16 @@ function Home() {
         <div className="row g-0 flex-column-reverse flex-lg-row">
           <div className="col-lg-6 p-0 wow fadeIn" data-wow-delay="0.1s">
             <div className="header-bg h-100 d-flex flex-column justify-content-center p-5">
-              <h1 className="display-4 text-light mb-5">
-                Enjoy Wonderful Day With Your Family
-              </h1>
-              <div className="d-flex align-items-center pt-4 animated slideInDown">
-                <a
-                  href=""
-                  className="btn btn-primary py-sm-3 px-3 px-sm-5 me-5"
+              <h2 className=" text-light mb-5 text-center">
+                Checkout Our Lastest Fashion Products of Top Brand
+              </h2>
+              <div className=" pt-4 animated slideInDown text-center">
+                <Link
+                  to="/shop"
+                  className="btn btn-primary py-sm-3 px-3 px-sm-5"
                 >
-                  Read More
-                </a>
-                <button
-                  type="button"
-                  className="btn-play"
-                  data-bs-toggle="modal"
-                  data-src="https://www.youtube.com/embed/DWRcNpR6Kdc"
-                  data-bs-target="#videoModal"
-                >
-                  <span></span>
-                </button>
-                <h6 className="text-white m-0 ms-4 d-none d-sm-block">
-                  Watch Video
-                </h6>
+                  Shop Now
+                </Link>
               </div>
             </div>
           </div>
@@ -153,49 +199,30 @@ function Home() {
       </div>
       {/* <!-- Header End --> */}
 
-      {/* <!-- Video Modal Start --> */}
-      <div
-        className="modal modal-video fade"
-        id="videoModal"
-        tabIndex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content rounded-0">
-            <div className="modal-header">
-              <h3 className="modal-title" id="exampleModalLabel">
-                Youtube Video
-              </h3>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div className="modal-body">
-              {/* <!-- 16:9 aspect ratio --> */}
-              <div className="ratio ratio-16x9">
-                <iframe
-                  className="embed-responsive-item"
-                  src=""
-                  id="video"
-                  allowFullScreen
-                  allowscriptaccess="always"
-                  allow="autoplay"
-                ></iframe>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {/* <!-- Video Modal End --> */}
+      {/* maincategory  */}
+      <CategorySlider data={maincategory} title="Maincategory" />
+
+      {/* product  */}
+      {maincategory?.map((item) => {
+        console.log(product);
+        return (
+          <Products
+            key={item.id}
+            title={item.name}
+            data={product
+              .filter((x) => x.maincategory === item.name)
+              .slice(0, 12)}
+          />
+        );
+      })}
 
       <About />
+      <CategorySlider data={subcategory} title="Subcategory" />
       <Facts />
-      <Features />
-      <Products />
+      <CategorySlider data={brand} title="Brand" />
+
+      {/* <Features /> */}
+
       <Testimonial />
     </>
   );

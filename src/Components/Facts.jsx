@@ -14,41 +14,41 @@ function Facts() {
               className="col-md-6 col-lg-3 text-center wow fadeIn"
               data-wow-delay="0.1s"
             >
-              <i className="fa fa-paw fa-3x text-primary mb-3"></i>
+              <i className="fa fa-users fa-3x text-light mb-3"></i>
               <h1 className="text-white mb-2" data-toggle="counter-up">
-                12345
+                10000+
               </h1>
-              <p className="text-white mb-0">Total Animal</p>
+              <p className="text-white mb-0">Happy Customers</p>
             </div>
             <div
               className="col-md-6 col-lg-3 text-center wow fadeIn"
               data-wow-delay="0.3s"
             >
-              <i className="fa fa-users fa-3x text-primary mb-3"></i>
+              <i className="fa fa-list fa-3x text-light mb-3"></i>
               <h1 className="text-white mb-2" data-toggle="counter-up">
-                12345
+                50+
               </h1>
-              <p className="text-white mb-0">Daily Vigitors</p>
+              <p className="text-white mb-0">Top Brand</p>
             </div>
             <div
               className="col-md-6 col-lg-3 text-center wow fadeIn"
               data-wow-delay="0.5s"
             >
-              <i className="fa fa-certificate fa-3x text-primary mb-3"></i>
+              <i className="fa fa-certificate fa-3x text-light mb-3"></i>
               <h1 className="text-white mb-2" data-toggle="counter-up">
-                12345
+                100%
               </h1>
-              <p className="text-white mb-0">Total Membership</p>
+              <p className="text-white mb-0">Original Product</p>
             </div>
             <div
               className="col-md-6 col-lg-3 text-center wow fadeIn"
               data-wow-delay="0.7s"
             >
-              <i className="fa fa-shield-alt fa-3x text-primary mb-3"></i>
+              <i className="fa fa-phone fa-3x text-light mb-3"></i>
               <h1 className="text-white mb-2" data-toggle="counter-up">
-                12345
+                24/7
               </h1>
-              <p className="text-white mb-0">Save Wild Life</p>
+              <p className="text-white mb-0">Customer Support</p>
             </div>
           </div>
         </div>

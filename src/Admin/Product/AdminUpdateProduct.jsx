@@ -35,8 +35,7 @@ export default function AdminupdateProduct() {
     finalPrice: "",
     stock: true,
     stockQuantity: "",
-
-    pic: "",
+    pic: [],
     active: true,
   });
 
@@ -54,6 +53,9 @@ export default function AdminupdateProduct() {
   //this is showing error message on the form
   let [show, setShow] = useState(false);
 
+  //for removing the images in the update product page we are taking dummy state to change the state so that the it render
+  let [flag, setFlag] = useState(false);
+
   let navigate = useNavigate();
 
   let dispatch = useDispatch();
@@ -70,7 +72,9 @@ export default function AdminupdateProduct() {
     let name = e.target.name;
 
     let value = e.target.files
-      ? Array.from(e.target.files).map((x) => "/product/" + x.name)
+      ? data.pic?.concat(
+          Array.from(e.target.files).map((x) => "/product/" + x.name)
+        )
       : e.target.value;
 
     //for backend
@@ -444,6 +448,26 @@ export default function AdminupdateProduct() {
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                   </select>
+                </div>
+
+                <div className="col-md-6 mb-3">
+                  <label>Click on Image to Remove</label> <br />
+                  {data.pic?.map((item, index) => {
+                    return (
+                      <img
+                        key={index}
+                        onClick={() => {
+                          data.pic.splice(index, 1);
+                          setFlag(!flag);
+                        }}
+                        src={`${process.env.REACT_APP_SERVER}${item}`}
+                        height={50}
+                        width={50}
+                        className="mx-1"
+                        alt="item images"
+                      />
+                    );
+                  })}
                 </div>
               </div>
 
