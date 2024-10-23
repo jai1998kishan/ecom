@@ -203,18 +203,20 @@ function Home() {
       <CategorySlider data={maincategory} title="Maincategory" />
 
       {/* product  */}
-      {maincategory?.map((item) => {
-        console.log(product);
-        return (
-          <Products
-            key={item.id}
-            title={item.name}
-            data={product
-              .filter((x) => x.maincategory === item.name)
-              .slice(0, 12)}
-          />
-        );
-      })}
+      <div className="container">
+        {maincategory?.map((item) => {
+          console.log(product);
+          return (
+            <Products
+              key={item.id}
+              title={item.name}
+              data={product
+                .filter((x) => x.maincategory === item.name)
+                .slice(0, 12)}
+            />
+          );
+        })}
+      </div>
 
       <About />
       <CategorySlider data={subcategory} title="Subcategory" />

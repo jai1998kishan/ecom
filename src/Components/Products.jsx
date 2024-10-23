@@ -6,8 +6,9 @@ function Products(props) {
   return (
     <>
       {/* <!-- Product Start --> */}
-      <div className="container-xxl py-5">
-        <div className="container">
+
+      <div className="my-3">
+        {props.title !== "Shop" ? (
           <div
             className="row g-5 mb-5 align-items-end wow fadeInUp"
             data-wow-delay="0.1s"
@@ -31,55 +32,38 @@ function Products(props) {
               </Link>
             </div>
           </div>
-          <div className="row g-4">
-            {props.data?.map((item) => {
-              return (
-                <div
-                  key={item.id}
-                  className="col-lg-3 col-md-4 wow fadeInUp mb-3"
-                  data-wow-delay="0.1s"
-                >
-                  <div className="col-12">
-                    <a
-                      className="animal-item"
-                      href={`${process.env.REACT_APP_SERVER}${item.pic[0]}`}
-                      data-lightbox="animal"
-                    >
-                      <div className="position-relative">
-                        <img
-                          className="img-fluid"
-                          src={`${process.env.REACT_APP_SERVER}${item.pic[0]}`}
-                          alt="product images"
-                          style={{ height: 250, width: "100%" }}
-                        />
-                        <div className="animal-text p-4">
-                          <p className="text-white small text-uppercase mb-0">
-                            {item.name}
-                          </p>
-                          <h5 className="text-white mb-0">
-                            <del className="text-danger">
-                              &#8377;{item.basePrice}
-                            </del>
-                            &#8377;{item.finalPrice}{" "}
-                            <sup>{item.discount}% Off</sup>
-                          </h5>
-                          <Link
-                            to={`/product/${item.id}`}
-                            className="btn btn-primary w-100"
-                          >
-                            {" "}
-                            <i className="fa fa-shopping-cart"></i> Add to Cart{" "}
-                          </Link>
-                        </div>
-                      </div>
-                    </a>
+        ) : null}
+
+        <div className="row g-4">
+          {props.data?.map((item) => {
+            return (
+              <div key={item.id} className="col-lg-3 col-md-4 col-sm-6  mb-3">
+                <div className="card">
+                  <img
+                    src={`${process.env.REACT_APP_SERVER}${item.pic[0]}`}
+                    className="card-img-top"
+                    alt="product images"
+                    height={300}
+                    width={"100%"}
+                  />
+                  <div className="card-body">
+                    <h6 className="card-title">{item.name}</h6>
+                    <p className="card-text">
+                      <del className="text-danger">&#8377;{item.basePrice}</del>
+                      &#8377;{item.finalPrice}{" "}
+                      <sup className="text-success">{item.discount}% Off</sup>
+                    </p>
+                    <Link to="#" className="btn btn-primary w-100">
+                      Add To Cart
+                    </Link>
                   </div>
                 </div>
-              );
-            })}
-          </div>
+              </div>
+            );
+          })}
         </div>
       </div>
+
       {/* <!-- Product End --> */}
     </>
   );
