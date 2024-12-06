@@ -31,6 +31,15 @@ import AdminUpdateTestimonial from "../Admin/Testimonial/AdminUpdateTestimonial"
 import AdminProduct from "../Admin/Product/AdminProduct";
 import AdminCreateProduct from "../Admin/Product/AdminCreateProduct";
 import AdminUpdateProduct from "../Admin/Product/AdminUpdateProduct";
+import SingleProductPage from "./SingleProductPage";
+import Signup from "./Signup";
+import Login from "./Login";
+import ProfilePage from "./ProfilePage";
+import UpdateProfile from "./UpdateProfile";
+import CartPage from "./CartPage";
+import CheckoutPage from "./CheckoutPage";
+import Confirmation from "./Confirmation";
+import AdminNewsletter from "../Admin/Newsletter/AdminNewsletter";
 
 function App() {
   return (
@@ -44,6 +53,19 @@ function App() {
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/testimonials" element={<TestimonialPage />} />
           <Route path="/contactus" element={<ContactUsPage />} />
+          <Route path="/product/:id" element={<SingleProductPage />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/login" element={<Login />} />
+
+          {/* Profile Buyer Page routes  */}
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/update-profile" element={<UpdateProfile />} />
+
+          {/* Cart routes */}
+          <Route path="/cart" element={<CartPage />} />
+          {/* Checkout routes */}
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/confirmation" element={<Confirmation />} />
 
           {/* Admin routes */}
           <Route path="/admin" element={<AdminHome />} />
@@ -88,6 +110,9 @@ function App() {
             path="/admin/testimonial/update/:id"
             element={<AdminUpdateTestimonial />}
           />
+
+          {/* Admin Newsletter routes  */}
+          <Route path="/admin/newsletter" element={<AdminNewsletter />} />
 
           {/* Admin Product routes  */}
           <Route path="/admin/product" element={<AdminProduct />} />

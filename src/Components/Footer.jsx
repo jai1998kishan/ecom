@@ -1,92 +1,126 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function Footer() {
+  let [email, setEmail] = useState("");
+  let [show, setShow] = useState("");
+
+  async function postData() {
+    let response = await fetch(`${process.env.REACT_APP_SERVER}/newsletter`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json",
+      },
+    });
+
+    response = await response.json();
+    if (response.find((x) => x.email === email))
+      setShow("Your Email Address is Already Registered");
+    else {
+      response = await fetch(`${process.env.REACT_APP_SERVER}/newsletter`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ email: email, active: true }),
+      });
+      response = await response.json();
+      setShow("Thanks To Subscribe Our Newsletter Service");
+    }
+  }
+
   return (
     <>
-      {/* <!-- Footer Start --> */}
       <div
         className="container-fluid footer bg-dark text-light footer mt-5 pt-5 wow fadeIn"
         data-wow-delay="0.1s"
       >
         <div className="container py-5">
           <div className="row g-5">
-            <div className="col-lg-3 col-md-6">
+            <div className="col-lg-4 col-md-6">
               <h5 className="text-light mb-4">Address</h5>
               <p className="mb-2">
                 <i className="fa fa-map-marker me-3"></i>A-43, Sector 16, Noida
               </p>
-              <Link className="mb-2 text-light d-block" to="tel:+919876543212">
-                <i className="fa fa-phone me-3"></i>+91-9876543212
+              <Link className="mb-2 text-light d-block" to="tel:+919873848036">
+                <i className="fa fa-phone me-3"></i>+91-9873848036
               </Link>
               <Link
                 className="mb-2 text-light d-block"
-                to="mailto:ducart@gmail.com"
+                to="mailto:vishankchauhan@gmail.com"
               >
-                <i className="fa fa-envelope me-3"></i>ducart@gmail.com
+                <i className="fa fa-envelope me-3"></i>vishankchauhan@gmail.com
               </Link>
               <div className="d-flex pt-2">
-                <a className="btn btn-outline-light btn-social" href="">
+                <a className="btn btn-outline-light btn-social" href="#">
                   <i className="fab fa-twitter"></i>
                 </a>
-                <a className="btn btn-outline-light btn-social" href="">
+                <a className="btn btn-outline-light btn-social" href="#">
                   <i className="fab fa-facebook-f"></i>
                 </a>
-                <a className="btn btn-outline-light btn-social" href="">
+                <a className="btn btn-outline-light btn-social" href="#">
                   <i className="fab fa-youtube"></i>
                 </a>
-                <a className="btn btn-outline-light btn-social" href="">
+                <a className="btn btn-outline-light btn-social" href="#">
                   <i className="fab fa-linkedin-in"></i>
                 </a>
               </div>
             </div>
-            <div className="col-lg-3 col-md-6">
+            <div className="col-lg-2 col-md-6">
               <h5 className="text-light mb-4">Quick Links</h5>
-              <Link className="btn btn-link" to="/">
+              <Link className="btn btn-link" href="/">
                 Home
               </Link>
-              <Link className="btn btn-link" to="/about">
+              <Link className="btn btn-link" href="/about">
                 About Us
               </Link>
-              <Link className="btn btn-link" to="/shop">
+              <Link className="btn btn-link" href="/shop">
                 Shop
               </Link>
-              <Link className="btn btn-link" to="/features">
+              <Link className="btn btn-link" href="/features">
                 Features
               </Link>
             </div>
-            <div className="col-lg-3 col-md-6">
+            <div className="col-lg-2 col-md-6">
               <h5 className="text-light mb-4">Quick Links</h5>
-              <Link className="btn btn-link" to="/testimonials">
+              <Link className="btn btn-link" href="/testimonials">
                 Testimonials
               </Link>
-              <Link className="btn btn-link" to="/contactus">
+              <Link className="btn btn-link" href="/contactus">
                 Contact Us
               </Link>
-              <Link className="btn btn-link" to="#">
+              <Link className="btn btn-link" href="#">
                 Terms & Condition
               </Link>
-              <Link className="btn btn-link" to="#">
+              <Link className="btn btn-link" href="#">
                 Refund Policy
               </Link>
             </div>
-            <div className="col-lg-3 col-md-6">
+            <div className="col-lg-4 col-md-6">
               <h5 className="text-light mb-4">Newsletter</h5>
-              <p>Dolor amet sit justo amet elitr clita ipsum elitr est.</p>
+              <p className="text-justify">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore
+                voluptate nam aperiam natus error animi laboriosam accusantium
+                autem eveniet quasi.
+              </p>
+              {show ? <p>{show}</p> : null}
               <div
                 className="position-relative mx-auto"
                 style={{ maxWidth: "400px" }}
               >
                 <input
+                  name="email"
                   className="form-control border-0 w-100 py-3 ps-4 pe-5"
-                  type="text"
+                  onChange={(e) => setEmail(e.target.value)}
+                  type="email"
                   placeholder="Your email"
                 />
                 <button
                   type="button"
+                  onClick={postData}
                   className="btn btn-primary py-2 position-absolute top-0 end-0 mt-2 me-2"
                 >
-                  SignUp
+                  Subscribe
                 </button>
               </div>
             </div>
@@ -98,7 +132,7 @@ function Footer() {
               <div className="col-md-6 text-center text-md-start mb-3 mb-md-0">
                 &copy;{" "}
                 <a className="border-bottom" href="#">
-                  Ducart
+                  ducart
                 </a>
                 , All Right Reserved.
               </div>
@@ -106,7 +140,6 @@ function Footer() {
           </div>
         </div>
       </div>
-      {/* <!-- Footer End --> */}
     </>
   );
 }

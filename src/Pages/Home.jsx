@@ -205,7 +205,7 @@ function Home() {
       {/* product  */}
       <div className="container">
         {maincategory?.map((item) => {
-          console.log(product);
+          // console.log(product);
           return (
             <Products
               key={item.id}

@@ -1,7 +1,15 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 function Navbar() {
+  let navigate = useNavigate();
+  function logout() {
+    localStorage.removeItem("login");
+    localStorage.removeItem("name");
+    localStorage.removeItem("userid");
+    localStorage.removeItem("role");
+    navigate("/login");
+  }
   return (
     <>
       {/* <!-- Topbar Start --> */}
@@ -114,36 +122,44 @@ function Navbar() {
               Admin
             </NavLink>
 
-            {/* <div className="nav-item dropdown">
-              <a
-                href="#"
-                className="nav-link dropdown-toggle"
-                data-bs-toggle="dropdown"
-              >
-                Pages
-              </a>
-              <div className="dropdown-menu rounded-0 rounded-bottom m-0">
-                <a href="animal.html" className="dropdown-item">
-                  Our Animals
-                </a>
-                <a href="membership.html" className="dropdown-item">
-                  Membership
-                </a>
-                <a href="visiting.html" className="dropdown-item">
-                  Visiting Hours
-                </a>
-                <a href="testimonial.html" className="dropdown-item">
-                  Testimonial
-                </a>
-                <a href="404.html" className="dropdown-item">
-                  404 Page
-                </a>
+            {localStorage.getItem("login") ? (
+              <div className="nav-item dropdown">
+                <p
+                  className="nav-link dropdown-toggle"
+                  data-bs-toggle="dropdown"
+                >
+                  {localStorage.getItem("name")}
+                </p>
+                <div className="dropdown-menu rounded-0 rounded-bottom m-0">
+                  {localStorage.getItem("role") === "Buyer" ? (
+                    <>
+                      <Link to="/profile" className="dropdown-item">
+                        Profile
+                      </Link>
+                      <Link to="/cart" className="dropdown-item">
+                        Cart
+                      </Link>
+                      <Link to="/checkout" className="dropdown-item">
+                        Checkout
+                      </Link>
+                    </>
+                  ) : (
+                    <Link to="/admin" className="dropdown-item">
+                      Profile
+                    </Link>
+                  )}
+                  <button onClick={logout} className="dropdown-item">
+                    Logout
+                  </button>
+                </div>
               </div>
-            </div> */}
+            ) : null}
           </div>
-          <a href="" className="btn btn-primary">
-            Login<i className="fa  ms-3"></i>
-          </a>
+          {!localStorage.getItem("login") ? (
+            <Link to="/login" className="btn btn-primary">
+              Login<i className="fa  ms-3"></i>
+            </Link>
+          ) : null}
         </div>
       </nav>
       {/* <!-- Navbar End --> */}

@@ -1,5 +1,3 @@
-//API Call kiya hai
-
 //use this function if our form has only text data
 export async function createRecord(collection, payload) {
   let response = await fetch(`${process.env.REACT_APP_SERVER}/${collection}`, {
@@ -23,6 +21,7 @@ export async function createMultipartRecord(collection, payload) {
 }
 
 export async function getRecord(collection) {
+  console.log("get record is called..");
   let response = await fetch(`${process.env.REACT_APP_SERVER}/${collection}`, {
     method: "GET",
     headers: {
@@ -44,11 +43,10 @@ export async function updateRecord(collection, payload) {
       body: JSON.stringify(payload),
     }
   );
-  return await response.json();
+  return response.json();
 }
 
 //use this function if our form has file fields
-
 export async function updateMultipartRecord(collection, payload) {
   let response = await fetch(
     `${process.env.REACT_APP_SERVER}/${collection}/${payload.get("id")}`,
@@ -58,7 +56,7 @@ export async function updateMultipartRecord(collection, payload) {
       body: payload,
     }
   );
-  return await response.json();
+  return response.json();
 }
 
 export async function deleteRecord(collection, payload) {

@@ -3,38 +3,48 @@ import { useDispatch, useSelector } from "react-redux";
 
 import HeroSection from "../../Components/HeroSection";
 import Sidebar from "../../Components/Sidebar";
-import { Link } from "react-router-dom";
 
 import $ from "jquery"; //import jQuery
 import "datatables.net-dt/css/dataTables.dataTables.min.css"; //import DataTables style
 import "datatables.net";
 
 import {
-  deleteMaincategory,
-  getMaincategory,
-} from "../../Redux/ActionCreators/MaincategoryActionCreators";
+  deleteNewsletter,
+  getNewsletter,
+  updateNewsletter,
+} from "../../Redux/ActionCreators/NewsletterActionCreators";
 
-export default function AdminMaincategory() {
+export default function AdminNewsletter() {
   let [data, setData] = useState([]);
 
+  let [flag, setFlag] = useState(false);
+
   let dispatch = useDispatch();
-  let MaincategoryStateData = useSelector(
-    (state) => state.MaincategoryStateData
-  );
+  let NewsletterStateData = useSelector((state) => state.NewsletterStateData);
 
   function deleteRecord(id) {
     if (window.confirm("Are You Sure to Delete that Item : ")) {
-      dispatch(deleteMaincategory({ id: id }));
+      dispatch(deleteNewsletter({ id: id }));
       getAPIData();
     }
   }
 
-  function getAPIData() {
-    dispatch(getMaincategory());
-    // console.log(MaincategoryStateData);
+  function updateRecord(id) {
+    if (window.confirm("Are You Sure To Change The Status : ")) {
+      let item = NewsletterStateData.find((x) => x.id === id);
+      let index = NewsletterStateData.findIndex((x) => x.id === id);
+      dispatch(updateNewsletter({ ...item, active: !item.active }));
+      data[index].active = !data[index].active;
+      setFlag(!false);
+    }
+  }
 
-    if (MaincategoryStateData.length) {
-      setData(MaincategoryStateData);
+  function getAPIData() {
+    dispatch(getNewsletter());
+    console.log(NewsletterStateData);
+
+    if (NewsletterStateData.length) {
+      setData(NewsletterStateData);
     } else {
       setData([]);
     }
@@ -48,7 +58,7 @@ export default function AdminMaincategory() {
   useEffect(() => {
     let time = getAPIData();
     return () => clearTimeout(time);
-  }, [MaincategoryStateData.length]);
+  }, [NewsletterStateData.length]);
 
   return (
     <>
@@ -62,11 +72,7 @@ export default function AdminMaincategory() {
 
           <div className="col-md-9">
             <h5 className="bg-primary text-center text-light p-2">
-              Maincategory{" "}
-              <Link to="/admin/maincategory/create">
-                {" "}
-                <i className="fa fa-plus text-light float-end"></i>{" "}
-              </Link>
+              Newsletter{" "}
             </h5>
             <table
               className="table table-bordered table-hover table-striped"
@@ -75,10 +81,8 @@ export default function AdminMaincategory() {
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Name</th>
-                  <th>Pic</th>
+                  <th>Email</th>
                   <th>Active</th>
-                  <th></th>
                   <th></th>
                 </tr>
               </thead>
@@ -87,30 +91,12 @@ export default function AdminMaincategory() {
                   return (
                     <tr>
                       <td>{item.id}</td>
-                      <td>{item.name}</td>
-                      <td>
-                        <Link
-                          to={`${process.env.REACT_APP_SERVER}${item.pic}`}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          <img
-                            src={`${process.env.REACT_APP_SERVER}${item.pic}`}
-                            alt="Maincategory_Image"
-                            height={50}
-                            width={80}
-                            className="rounded"
-                          />
-                        </Link>
-                      </td>
-                      <td>{item.active ? "Yes" : "No"}</td>
-                      <td>
-                        <Link
-                          to={`/admin/maincategory/update/${item.id}`}
-                          className="btn btn-primary"
-                        >
-                          <i className="fa fa-edit"></i>
-                        </Link>
+                      <td>{item.email}</td>
+                      <td
+                        onClick={() => updateRecord(item.id)}
+                        title="Click to Change Status"
+                      >
+                        {item.active ? "Yes" : "No"}
                       </td>
                       <td>
                         <button

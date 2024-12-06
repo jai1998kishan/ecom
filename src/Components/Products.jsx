@@ -53,7 +53,10 @@ function Products(props) {
                       &#8377;{item.finalPrice}{" "}
                       <sup className="text-success">{item.discount}% Off</sup>
                     </p>
-                    <Link to="#" className="btn btn-primary w-100">
+                    <Link
+                      to={`/product/${item.id}`}
+                      className="btn btn-primary w-100"
+                    >
                       Add To Cart
                     </Link>
                   </div>

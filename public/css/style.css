@@ -1,4 +1,5 @@
 /********** Template CSS **********/
+
 :root {
   --primary: #2eb872;
   --light: #f3f4f5;
@@ -11,6 +12,15 @@
   text-align: justify;
 }
 .testimonial-message::-webkit-scrollbar {
+  display: none;
+}
+
+.description {
+  height: 300px;
+  overflow: auto;
+  text-align: justify;
+}
+.description::-webkit-scrollbar {
   display: none;
 }
 

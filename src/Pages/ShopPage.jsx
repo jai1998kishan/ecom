@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
 
+import HeroSection from "../Components/HeroSection";
 import Testimonial from "../Components/Testimonial";
 import Products from "../Components/Products";
-import HeroSection from "../Components/HeroSection";
 
 import { getProduct } from "../Redux/ActionCreators/ProductActionCreators";
-import { getBrand } from "../Redux/ActionCreators/BrandActionCreators";
 import { getMaincategory } from "../Redux/ActionCreators/MaincategoryActionCreators";
 import { getSubcategory } from "../Redux/ActionCreators/SubcategoryActionCreators";
+import { getBrand } from "../Redux/ActionCreators/BrandActionCreators";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-
 export default function ShopPage() {
   let [products, setProducts] = useState([]);
-  let [brand, setBrand] = useState([]);
   let [maincategory, setMaincategory] = useState([]);
   let [subcategory, setSubcategory] = useState([]);
+  let [brand, setBrand] = useState([]);
 
   let [mc, setMc] = useState("");
   let [sc, setSc] = useState("");
@@ -29,7 +28,6 @@ export default function ShopPage() {
   let [flag, setFlag] = useState(false);
 
   let dispatch = useDispatch();
-
   let searchQuery = useLocation().search;
 
   let ProductStateData = useSelector((state) => state.ProductStateData);
@@ -44,35 +42,32 @@ export default function ShopPage() {
     if (search === "") applyFilter(mc, sc, br, min, max);
     else postSearchPrice(min, max);
   }
-
   function postSearchPrice(min, max) {
     let data = ProductStateData.filter(
       (x) =>
         x.name?.toLocaleLowerCase().includes(search) ||
         x.maincategory?.toLocaleLowerCase() === search ||
         x.subcategory?.toLocaleLowerCase() === search ||
-        x.color?.toLocaleLowerCase() === search ||
         x.brand?.toLocaleLowerCase() === search ||
+        x.color?.toLocaleLowerCase() === search ||
         x.description?.toLocaleLowerCase().includes(search)
     );
-
     setProducts(data.filter((x) => x.finalPrice >= min && x.finalPrice <= max));
   }
-
   function postSearch(e) {
     e.preventDefault();
-    let data = ProductStateData.filter(
-      (x) =>
-        x.name?.toLocaleLowerCase().includes(search) ||
-        x.maincategory?.toLocaleLowerCase() === search ||
-        x.subcategory?.toLocaleLowerCase() === search ||
-        x.color?.toLocaleLowerCase() === search ||
-        x.brand?.toLocaleLowerCase() === search ||
-        x.description?.toLocaleLowerCase().includes(search)
+    setProducts(
+      ProductStateData.filter(
+        (x) =>
+          x.name?.toLocaleLowerCase().includes(search) ||
+          x.maincategory?.toLocaleLowerCase() === search ||
+          x.subcategory?.toLocaleLowerCase() === search ||
+          x.brand?.toLocaleLowerCase() === search ||
+          x.color?.toLocaleLowerCase() === search ||
+          x.description?.toLocaleLowerCase().includes(search)
+      )
     );
-    setProducts(data);
   }
-
   function applySortFilter(option) {
     if (option === "1")
       setProducts(products.sort((x, y) => y.id.localeCompare(x.id)));
@@ -103,26 +98,23 @@ export default function ShopPage() {
       );
     else if (mc === "All" && sc !== "All" && br !== "All")
       data = ProductStateData.filter(
-        (x) => x.active && x.subcategory === sc && x.brand === br
+        (x) => x.active && x.brand === br && x.subcategory === sc
       );
     else
       data = ProductStateData.filter(
         (x) =>
           x.active &&
-          x.subcategory === sc &&
+          x.maincategory === mc &&
           x.brand === br &&
-          x.maincategory === mc
+          x.subcategory === sc
       );
 
-    if (min === -1 && max === -1) {
-      setProducts(data);
-    } else {
+    if (min === -1 && max === -1) setProducts(data);
+    else
       setProducts(
         data.filter((x) => x.finalPrice >= min && x.finalPrice <= max)
       );
-    }
   }
-
   function setFilter(mc, sc, br) {
     setMc(mc);
     setSc(sc);
@@ -150,14 +142,6 @@ export default function ShopPage() {
 
   useEffect(() => {
     (() => {
-      dispatch(getBrand());
-      if (BrandStateData.length)
-        setBrand(BrandStateData.filter((x) => x.active));
-    })();
-  }, [BrandStateData.length]);
-
-  useEffect(() => {
-    (() => {
       dispatch(getMaincategory());
       if (MaincategoryStateData.length)
         setMaincategory(MaincategoryStateData.filter((x) => x.active));
@@ -172,6 +156,13 @@ export default function ShopPage() {
     })();
   }, [SubcategoryStateData.length]);
 
+  useEffect(() => {
+    (() => {
+      dispatch(getBrand());
+      if (BrandStateData.length)
+        setBrand(BrandStateData.filter((x) => x.active));
+    })();
+  }, [BrandStateData.length]);
   return (
     <>
       <HeroSection title="Shop" />
@@ -205,6 +196,7 @@ export default function ShopPage() {
                 );
               })}
             </div>
+
             <div className="list-group mb-3">
               <Link
                 to={`/shop?mc=${mc}&sc=All&br=${br}`}
@@ -231,6 +223,7 @@ export default function ShopPage() {
                 );
               })}
             </div>
+
             <div className="list-group mb-3">
               <Link
                 to={`/shop?mc=${mc}&sc=${sc}&br=All`}
@@ -258,10 +251,10 @@ export default function ShopPage() {
               })}
             </div>
             <div className="mb-3">
-              <h5 className="bg-primary text-light text-center p-2">
+              <h5 className="bg-primary text-center p-2 text-light">
                 Price Range
               </h5>
-              <form onSubmit={(e) => postPriceFilter(e)}>
+              <form onSubmit={postPriceFilter}>
                 <div className="row">
                   <div className="col-md-6 mb-3">
                     <label>Min Amount</label>
@@ -270,8 +263,8 @@ export default function ShopPage() {
                       name="min"
                       onChange={(e) => setMin(e.target.value)}
                       className="form-control border-3 border-primary"
-                      placeholder="Min Amount"
                       value={min}
+                      placeholder="Min Amount"
                     />
                   </div>
                   <div className="col-md-6 mb-3">
@@ -281,8 +274,8 @@ export default function ShopPage() {
                       name="max"
                       onChange={(e) => setMax(e.target.value)}
                       className="form-control border-3 border-primary"
-                      placeholder="Max Amount"
                       value={max}
+                      placeholder="Max Amount"
                     />
                   </div>
                 </div>
@@ -294,23 +287,23 @@ export default function ShopPage() {
               </form>
             </div>
           </div>
-
           <div className="col-md-10">
             <div className="row">
-              <div className="col-md-9 mb-3">
+              <div className="col-md-9">
                 <form onSubmit={postSearch}>
                   <div className="btn-group w-100">
                     <input
                       type="search"
                       name="search"
                       value={search}
-                      onChange={(e) => setSearch(e.target.value)}
-                      placeholder="Search Products by Name, Maincategory, Subcategory, Brand, Description"
+                      onChange={(e) =>
+                        setSearch(e.target.value.toLocaleLowerCase())
+                      }
+                      placeholder="Search Products by Name, Maincategory, Subcategory, Brand, Color, Description..."
                       className="form-control border-3 border-primary"
                     />
                     <button type="submit" className="btn btn-primary">
-                      {" "}
-                      <i className="fa fa-search"></i>{" "}
+                      <i className="fa fa-search"></i>
                     </button>
                   </div>
                 </form>
@@ -318,8 +311,8 @@ export default function ShopPage() {
               <div className="col-md-3">
                 <select
                   name="sort"
-                  className="form-select border-3 border-primary"
                   onChange={(e) => applySortFilter(e.target.value)}
+                  className="form-select border-3 border-primary"
                 >
                   <option value="1">Latest</option>
                   <option value="2">Price : High to Low</option>
@@ -331,7 +324,6 @@ export default function ShopPage() {
           </div>
         </div>
       </div>
-
       <Testimonial />
     </>
   );
