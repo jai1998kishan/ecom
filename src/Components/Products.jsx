@@ -19,7 +19,7 @@ function Products(props) {
                 Products
               </p>
               <h1 className="display-5 mb-0">
-                Checkout Our <span className="text-primary">Ducart</span>{" "}
+                Checkout Our <span className="text-primary">Mywears</span>{" "}
                 {props.title} Product
               </h1>
             </div>

@@ -14,7 +14,7 @@ function Features() {
               </p>
               <h1 className="display-5 mb-0">
                 Special Features of
-                <span className="text-primary"> Ducart</span>
+                <span className="text-primary"> Mywears</span>
               </h1>
             </div>
             <div className="col-lg-6">

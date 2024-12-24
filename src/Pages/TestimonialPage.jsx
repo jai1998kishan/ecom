@@ -11,7 +11,7 @@ function TestimonialPage() {
       <HeroSection title="Testimonials" />
       <Testimonial />
       <About />
-      <Features />
+      {/* <Features /> */}
     </>
   );
 }

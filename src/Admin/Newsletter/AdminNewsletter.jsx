@@ -35,7 +35,7 @@ export default function AdminNewsletter() {
       let index = NewsletterStateData.findIndex((x) => x.id === id);
       dispatch(updateNewsletter({ ...item, active: !item.active }));
       data[index].active = !data[index].active;
-      setFlag(!false);
+      setFlag(!flag);
     }
   }
 
@@ -74,43 +74,45 @@ export default function AdminNewsletter() {
             <h5 className="bg-primary text-center text-light p-2">
               Newsletter{" "}
             </h5>
-            <table
-              className="table table-bordered table-hover table-striped"
-              id="DataTable"
-            >
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Email</th>
-                  <th>Active</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.map((item, index) => {
-                  return (
-                    <tr>
-                      <td>{item.id}</td>
-                      <td>{item.email}</td>
-                      <td
-                        onClick={() => updateRecord(item.id)}
-                        title="Click to Change Status"
-                      >
-                        {item.active ? "Yes" : "No"}
-                      </td>
-                      <td>
-                        <button
-                          className="btn btn-danger"
-                          onClick={() => deleteRecord(item.id)}
+            <div className="table-responsive">
+              <table
+                className="table table-bordered table-hover table-striped"
+                id="DataTable"
+              >
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Active</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data.map((item, index) => {
+                    return (
+                      <tr>
+                        <td>{item.id}</td>
+                        <td>{item.email}</td>
+                        <td
+                          onClick={() => updateRecord(item.id)}
+                          title="Click to Change Status"
                         >
-                          <i className="fa fa-trash"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
+                          {item.active ? "Yes" : "No"}
+                        </td>
+                        <td>
+                          <button
+                            className="btn btn-danger"
+                            onClick={() => deleteRecord(item.id)}
+                          >
+                            <i className="fa fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>

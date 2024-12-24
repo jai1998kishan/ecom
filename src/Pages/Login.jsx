@@ -45,6 +45,21 @@ export default function Login() {
       else navigate("/admin");
     } else setShow(true);
   }
+
+  function change() {
+    var input = document.getElementById("password");
+    var eye = document.getElementById("eye");
+    if (input.type === "password") {
+      input.type = "text";
+      eye.classList.remove("fa-eye");
+      eye.classList.add("fa-eye-slash");
+    } else {
+      input.type = "password";
+      eye.classList.remove("fa-eye-slash");
+      eye.classList.add("fa-eye");
+    }
+  }
+
   return (
     <>
       <HeroSection title="Login - Access Your Account" />
@@ -74,13 +89,23 @@ export default function Login() {
 
               <div className="mb-3">
                 <label>Password*</label>
-                <input
-                  type="password"
-                  name="password"
-                  onChange={getInputData}
-                  className="form-control border-3 border-primary"
-                  placeholder="Password"
-                />
+                <div className="btn-group d-flex">
+                  <input
+                    type="password"
+                    name="password"
+                    onChange={getInputData}
+                    className="form-control border-3 border-primary"
+                    placeholder="Password"
+                    id="password"
+                  />
+                  <button
+                    type="button"
+                    className="btn btn-primary"
+                    onClick={change}
+                  >
+                    <i className="fa fa-eye" id="eye"></i>
+                  </button>
+                </div>
               </div>
 
               <div className="mb-3">

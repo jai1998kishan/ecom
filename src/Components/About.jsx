@@ -10,11 +10,11 @@ function About() {
           <div className="row g-5">
             <div className="col-lg-6 wow fadeInUp" data-wow-delay="0.1s">
               <p>
-                <span className="text-primary me-2">#</span>Welcome To Ducart
+                <span className="text-primary me-2">#</span>Welcome To Mywears
               </p>
               <h1 className="display-5 mb-4">
                 Why You Should Checkout
-                <span className="text-primary"> Ducart</span>
+                <span className="text-primary"> Mywears</span>
               </h1>
               <p className="mb-4">
                 Stet no et lorem dolor et diam, amet duo ut dolore vero eos. No

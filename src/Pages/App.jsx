@@ -34,12 +34,18 @@ import AdminUpdateProduct from "../Admin/Product/AdminUpdateProduct";
 import SingleProductPage from "./SingleProductPage";
 import Signup from "./Signup";
 import Login from "./Login";
+
 import ProfilePage from "./ProfilePage";
 import UpdateProfile from "./UpdateProfile";
 import CartPage from "./CartPage";
 import CheckoutPage from "./CheckoutPage";
 import Confirmation from "./Confirmation";
 import AdminNewsletter from "../Admin/Newsletter/AdminNewsletter";
+import AdminUser from "../Admin/User/AdminUser";
+import AdminContactUs from "../Admin/ContactUs/AdminContactUs";
+import AdminContactUsShow from "../Admin/ContactUs/AdminContactUsShow";
+import AdminCheckout from "../Admin/Checkout/AdminCheckout";
+import AdminCheckoutShow from "../Admin/Checkout/AdminCheckoutShow";
 
 function App() {
   return (
@@ -58,72 +64,106 @@ function App() {
           <Route path="/login" element={<Login />} />
 
           {/* Profile Buyer Page routes  */}
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/update-profile" element={<UpdateProfile />} />
+          {localStorage.getItem("login") ? (
+            <>
+              <Route path="/profile" element={<ProfilePage />} />
+              <Route path="/update-profile" element={<UpdateProfile />} />
 
-          {/* Cart routes */}
-          <Route path="/cart" element={<CartPage />} />
-          {/* Checkout routes */}
-          <Route path="/checkout" element={<CheckoutPage />} />
-          <Route path="/confirmation" element={<Confirmation />} />
+              {/* Cart routes */}
+              <Route path="/cart" element={<CartPage />} />
+              {/* Checkout routes */}
+              <Route path="/checkout" element={<CheckoutPage />} />
+              <Route path="/confirmation" element={<Confirmation />} />
+            </>
+          ) : null}
 
           {/* Admin routes */}
-          <Route path="/admin" element={<AdminHome />} />
+          {localStorage.getItem("login") &&
+          localStorage.getItem("role") === "Admin" ? (
+            <>
+              <Route path="/admin" element={<AdminHome />} />
 
-          {/* Admin Maincategory routes  */}
-          <Route path="/admin/maincategory" element={<AdminMaincategory />} />
-          <Route
-            path="/admin/maincategory/create"
-            element={<AdminCreateMaincategory />}
-          />
-          <Route
-            path="/admin/maincategory/update/:id"
-            element={<AdminUpdateMaincategory />}
-          />
+              {/* Admin Maincategory routes  */}
+              <Route
+                path="/admin/maincategory"
+                element={<AdminMaincategory />}
+              />
+              <Route
+                path="/admin/maincategory/create"
+                element={<AdminCreateMaincategory />}
+              />
+              <Route
+                path="/admin/maincategory/update/:id"
+                element={<AdminUpdateMaincategory />}
+              />
 
-          {/* Admin Subcategory routes  */}
-          <Route path="/admin/subcategory" element={<AdminSubcategory />} />
-          <Route
-            path="/admin/subcategory/create"
-            element={<AdminCreateSubcategory />}
-          />
-          <Route
-            path="/admin/subcategory/update/:id"
-            element={<AdminUpdateSubcategory />}
-          />
+              {/* Admin Subcategory routes  */}
+              <Route path="/admin/subcategory" element={<AdminSubcategory />} />
+              <Route
+                path="/admin/subcategory/create"
+                element={<AdminCreateSubcategory />}
+              />
+              <Route
+                path="/admin/subcategory/update/:id"
+                element={<AdminUpdateSubcategory />}
+              />
 
-          {/* Admin Brand routes  */}
-          <Route path="/admin/brand" element={<AdminBrand />} />
-          <Route path="/admin/brand/create" element={<AdminCreateBrand />} />
-          <Route
-            path="/admin/brand/update/:id"
-            element={<AdminUpdateBrand />}
-          />
+              {/* Admin Brand routes  */}
+              <Route path="/admin/brand" element={<AdminBrand />} />
+              <Route
+                path="/admin/brand/create"
+                element={<AdminCreateBrand />}
+              />
+              <Route
+                path="/admin/brand/update/:id"
+                element={<AdminUpdateBrand />}
+              />
 
-          {/* Admin Testimonial routes  */}
-          <Route path="/admin/testimonial" element={<AdminTestimonial />} />
-          <Route
-            path="/admin/testimonial/create"
-            element={<AdminCreateTestimonial />}
-          />
-          <Route
-            path="/admin/testimonial/update/:id"
-            element={<AdminUpdateTestimonial />}
-          />
+              {/* Admin Testimonial routes  */}
+              <Route path="/admin/testimonial" element={<AdminTestimonial />} />
+              <Route
+                path="/admin/testimonial/create"
+                element={<AdminCreateTestimonial />}
+              />
+              <Route
+                path="/admin/testimonial/update/:id"
+                element={<AdminUpdateTestimonial />}
+              />
 
-          {/* Admin Newsletter routes  */}
-          <Route path="/admin/newsletter" element={<AdminNewsletter />} />
+              {/* Admin Newsletter routes  */}
+              <Route path="/admin/newsletter" element={<AdminNewsletter />} />
 
-          {/* Admin Product routes  */}
-          <Route path="/admin/product" element={<AdminProduct />} />
-          <Route
-            path="/admin/product/create"
-            element={<AdminCreateProduct />}
-          />
-          <Route
-            path="/admin/product/update/:id"
-            element={<AdminUpdateProduct />}
-          />
+              {/* Admin Checkout routes  */}
+              <Route path="/admin/checkout" element={<AdminCheckout />} />
+              {/* Admin Checkout Show Page routes  */}
+              <Route
+                path="/admin/checkout/show/:id"
+                element={<AdminCheckoutShow />}
+              />
+
+              {/* Admin User routes  */}
+              <Route path="/admin/user" element={<AdminUser />} />
+
+              {/* Admin ContactUs routes  */}
+              <Route path="/admin/contactus" element={<AdminContactUs />} />
+              {/* Admin ContactUs Show Page routes  */}
+              <Route
+                path="/admin/contactus/show/:id"
+                element={<AdminContactUsShow />}
+              />
+
+              {/* Admin Product routes  */}
+              <Route path="/admin/product" element={<AdminProduct />} />
+              <Route
+                path="/admin/product/create"
+                element={<AdminCreateProduct />}
+              />
+              <Route
+                path="/admin/product/update/:id"
+                element={<AdminUpdateProduct />}
+              />
+            </>
+          ) : null}
 
           {/* Error routes  */}
           <Route path="/*" element={<ErrorPage />} />

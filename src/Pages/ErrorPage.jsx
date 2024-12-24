@@ -1,8 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import HeroSection from "../Components/HeroSection";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function ErrorPage() {
+  let navigate = useNavigate();
+
+  useEffect(() => {
+    // console.log(window.location.pathname);
+    // console.log(window.location.href);
+
+    if (
+      (localStorage.getItem("login") &&
+        window.location.pathname === "/admin") ||
+      window.location.pathname === "/profile"
+    ) {
+      navigate(window.location.pathname);
+    }
+  }, []);
   return (
     <>
       <HeroSection title="404! Page Not Found" />

@@ -22,11 +22,11 @@ function Navbar() {
             <div className="h-100 d-inline-flex align-items-center py-3 me-4">
               <small className="fa fa-envelope text-primary me-2"></small>
               <Link
-                to="mailto:ducart@gmail.com"
+                to="mailto:Mywears@gmail.com"
                 target="_blank"
                 rel="noreferrer"
               >
-                ducart@gmail.com
+                Mywears@gmail.com
               </Link>
             </div>
             <div className="h-100 d-inline-flex align-items-center py-3 me-4">
@@ -85,7 +85,7 @@ function Navbar() {
       >
         <Link to="/" className="navbar-brand p-0">
           <i className="fa fa-shopping-bag text-primary fs-1 me-2"></i>
-          <h1 className="m-0 text-primary">Ducart</h1>
+          <h1 className="m-0 text-primary">Mywears</h1>
         </Link>
         <button
           type="button"
@@ -103,24 +103,24 @@ function Navbar() {
             <NavLink to="/" className="nav-item nav-link ">
               Home
             </NavLink>
-            <NavLink to="/about" className="nav-item nav-link">
-              About
-            </NavLink>
             <NavLink to="/shop" className="nav-item nav-link">
               Shop
             </NavLink>
-            <NavLink to="/features" className="nav-item nav-link">
-              Features
+            <NavLink to="/about" className="nav-item nav-link">
+              About
             </NavLink>
+            {/* <NavLink to="/features" className="nav-item nav-link">
+              Features
+            </NavLink> */}
             <NavLink to="/testimonials" className="nav-item nav-link">
               Testimonials
             </NavLink>
             <NavLink to="/contactus" className="nav-item nav-link">
               Contact Us
             </NavLink>
-            <NavLink to="/admin" className="nav-item nav-link">
+            {/* <NavLink to="/admin" className="nav-item nav-link">
               Admin
-            </NavLink>
+            </NavLink> */}
 
             {localStorage.getItem("login") ? (
               <div className="nav-item dropdown">

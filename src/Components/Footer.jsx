@@ -40,28 +40,44 @@ function Footer() {
             <div className="col-lg-4 col-md-6">
               <h5 className="text-light mb-4">Address</h5>
               <p className="mb-2">
-                <i className="fa fa-map-marker me-3"></i>A-43, Sector 16, Noida
+                <i className="fa fa-map-marker me-3"></i>A-43, Sector 123, Noida
               </p>
               <Link className="mb-2 text-light d-block" to="tel:+919873848036">
-                <i className="fa fa-phone me-3"></i>+91-9873848036
+                <i className="fa fa-phone me-3"></i>+91-9876543212
               </Link>
               <Link
                 className="mb-2 text-light d-block"
                 to="mailto:vishankchauhan@gmail.com"
               >
-                <i className="fa fa-envelope me-3"></i>vishankchauhan@gmail.com
+                <i className="fa fa-envelope me-3"></i>vishun@gmail.com
               </Link>
               <div className="d-flex pt-2">
-                <a className="btn btn-outline-light btn-social" href="#">
+                <a
+                  className="btn btn-outline-light btn-social"
+                  href="https://x.com/"
+                  target="_blank"
+                >
                   <i className="fab fa-twitter"></i>
                 </a>
-                <a className="btn btn-outline-light btn-social" href="#">
+                <a
+                  className="btn btn-outline-light btn-social"
+                  href="https://www.facebook.com/"
+                  target="_blank"
+                >
                   <i className="fab fa-facebook-f"></i>
                 </a>
-                <a className="btn btn-outline-light btn-social" href="#">
+                <a
+                  className="btn btn-outline-light btn-social"
+                  href="https://www.youtube.com/"
+                  target="_blank"
+                >
                   <i className="fab fa-youtube"></i>
                 </a>
-                <a className="btn btn-outline-light btn-social" href="#">
+                <a
+                  className="btn btn-outline-light btn-social"
+                  href="https://www.linkedin.com/home"
+                  target="_blank"
+                >
                   <i className="fab fa-linkedin-in"></i>
                 </a>
               </div>
@@ -132,7 +148,7 @@ function Footer() {
               <div className="col-md-6 text-center text-md-start mb-3 mb-md-0">
                 &copy;{" "}
                 <a className="border-bottom" href="#">
-                  ducart
+                  Mywears
                 </a>
                 , All Right Reserved.
               </div>
